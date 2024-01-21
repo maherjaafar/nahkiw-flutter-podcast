@@ -8,10 +8,23 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final passwordController = TextEditingController(text: '');
+    final _formKey = GlobalKey<FormState>();
+
     return AuthenticationPageBase(
       primaryAction: AuthActionItem(
         text: 'Sign Up',
-        onPressed: () {},
+        onPressed: () {
+          final isFormValid = _formKey.currentState!.validate();
+          if (isFormValid) {
+            context.goNamed(FirstEpisodeRouteNames.root);
+            return;
+          }
+
+          const snackBar = SnackBar(
+            content: Text('Please make sure that all fields are valid'),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        },
       ),
       secondaryAction: AuthActionItem(
         text: 'Do you have an account?',
@@ -25,6 +38,7 @@ class SignUpPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Form(
+            key: _formKey,
             child: Column(
               children: [
                 FirstEpisodeTextFormField.name(
