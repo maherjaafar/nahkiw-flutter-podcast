@@ -3,11 +3,11 @@ import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
   routes: [
-    _loginRoute,
+    _signInRoute,
   ],
 );
 
-final _loginRoute = GoRoute(
+final _signInRoute = GoRoute(
   name: FirstEpisodeRouteNames.signIn,
   path: FirstEpisodeRouteNames.signIn.path,
   builder: (context, state) => const SignInPage(),
