@@ -8,22 +8,18 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final passwordController = TextEditingController(text: '');
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return AuthenticationPageBase(
       primaryAction: AuthActionItem(
         text: 'Sign Up',
         onPressed: () {
-          final isFormValid = _formKey.currentState!.validate();
+          final isFormValid = formKey.currentState!.validate();
           if (isFormValid) {
             context.goNamed(FirstEpisodeRouteNames.root);
             return;
           }
-
-          const snackBar = SnackBar(
-            content: Text('Please make sure that all fields are valid'),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          showSnackBar(context, 'Please fill up the form');
         },
       ),
       secondaryAction: AuthActionItem(
@@ -38,7 +34,7 @@ class SignUpPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               children: [
                 FirstEpisodeTextFormField.name(
@@ -54,7 +50,8 @@ class SignUpPage extends StatelessWidget {
                 FirstEpisodeTextFormField.password(
                   hintText: 'Confirm Password',
                   validator: (value) {
-                    if (value != passwordController.text) {
+                    if (value?.isEmpty == true ||
+                        value != passwordController.text) {
                       return 'Password does not match';
                     }
                     return null;
