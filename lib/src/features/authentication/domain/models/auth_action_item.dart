@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class AuthActionItem {
-  const AuthActionItem({
-    required this.text,
-    required this.onPressed,
-    this.secondaryText,
-  });
+part 'auth_action_item.freezed.dart';
 
-  final String text;
-  final String? secondaryText;
-  final VoidCallback onPressed;
+@freezed
+class AuthActionItem with _$AuthActionItem {
+  factory AuthActionItem({
+    required String text,
+    required VoidCallback onPressed,
+    @Default(false) bool isLoading,
+    String? secondaryText,
+  }) = _AuthActionItem;
 }

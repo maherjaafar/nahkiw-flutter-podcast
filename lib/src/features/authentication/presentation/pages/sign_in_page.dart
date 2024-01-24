@@ -1,16 +1,46 @@
 import 'package:first_episode/src/src.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class SignInPage extends StatelessWidget {
+final _formKey = GlobalKey<FormState>();
+
+class SignInPage extends ConsumerStatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends ConsumerState<SignInPage> {
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    passwordController = TextEditingController(text: '');
+    emailController = TextEditingController(text: '');
+  }
 
   @override
   Widget build(BuildContext context) {
     return AuthenticationPageBase(
       primaryAction: AuthActionItem(
+        isLoading: ref.watch(authenticationProvider).isLoading,
         text: 'Sign In',
-        onPressed: () {},
+        onPressed: () async {
+          final email = emailController.text;
+          final password = passwordController.text;
+          logger
+            ..d('Email: $email')
+            ..d('Password: $password');
+          if (_formKey.currentState?.validate() != true) return;
+          ref.read(authenticationProvider.notifier).signInWithEmailAndPassword(
+                email: email,
+                password: password,
+              );
+        },
       ),
       secondaryAction: AuthActionItem(
         text: 'Don\'t have an account?',
@@ -24,10 +54,15 @@ class SignInPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Form(
+            key: _formKey,
             child: Column(
               children: [
-                FirstEpisodeTextFormField.email(),
-                FirstEpisodeTextFormField.password(),
+                FirstEpisodeTextFormField.email(
+                  controller: emailController,
+                ),
+                FirstEpisodeTextFormField.password(
+                  controller: passwordController,
+                ),
               ],
             ).separatedBy(FirstEpisodeSizes.medium),
           ),

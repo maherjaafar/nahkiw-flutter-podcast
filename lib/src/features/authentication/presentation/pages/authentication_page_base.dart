@@ -52,7 +52,9 @@ class AuthenticationPageBase extends StatelessWidget {
                               minimumSize: const Size(double.infinity, 50),
                             ),
                             onPressed: primaryAction.onPressed,
-                            child: Text(primaryAction.text),
+                            child: primaryAction.isLoading
+                                ? const CircularProgressIndicator.adaptive()
+                                : Text(primaryAction.text),
                           ),
                           const SizedBox(height: FirstEpisodeSizes.medium),
                           _buildSecondaryActionButton(context),
