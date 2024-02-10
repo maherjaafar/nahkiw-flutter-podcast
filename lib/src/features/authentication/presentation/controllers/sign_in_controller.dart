@@ -6,11 +6,14 @@ part 'sign_in_controller.g.dart';
 @riverpod
 class Authentication extends _$Authentication {
   @override
-  Future<String> build() async {
-    return 'token';
+  Future<AuthenticationState> build() async {
+    return const AuthenticationState(
+      accessToken: null,
+      status: AuthenticationStatus.unauthenticated,
+    );
   }
 
-  Future<String> signInWithEmailAndPassword({
+  Future<void> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -24,8 +27,10 @@ class Authentication extends _$Authentication {
         email: email,
         password: password,
       );
-      state = AsyncData(data);
-      return data;
+      state = AsyncData(AuthenticationState(
+        accessToken: data,
+        status: AuthenticationStatus.authenticated,
+      ));
     } on Exception {
       rethrow;
     }
