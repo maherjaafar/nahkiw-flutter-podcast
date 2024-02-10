@@ -1,19 +1,22 @@
 import 'package:first_episode/src/src.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends ConsumerWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final passwordController = TextEditingController(text: '');
     final formKey = GlobalKey<FormState>();
-
+    final isLoading = ref.watch(authenticationProvider).isLoading;
     return AuthenticationPageBase(
       primaryAction: AuthActionItem(
+        isLoading: isLoading,
         text: 'Sign Up',
         onPressed: () {
+          if (isLoading) return;
           final isFormValid = formKey.currentState!.validate();
           if (isFormValid) {
             context.goNamed(FirstEpisodeRouteNames.root);

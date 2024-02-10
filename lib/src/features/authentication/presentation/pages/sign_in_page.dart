@@ -25,11 +25,13 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(authenticationProvider).isLoading;
     return AuthenticationPageBase(
       primaryAction: AuthActionItem(
-        isLoading: ref.watch(authenticationProvider).isLoading,
+        isLoading: isLoading,
         text: 'Sign In',
         onPressed: () async {
+          if (isLoading) return;
           final email = emailController.text;
           final password = passwordController.text;
           logger
