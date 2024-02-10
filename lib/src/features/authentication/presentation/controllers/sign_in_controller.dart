@@ -31,29 +31,3 @@ class Authentication extends _$Authentication {
     }
   }
 }
-
-// @riverpod
-// Future<String> signInWithEmailAndPassword(
-//   SignInWithEmailAndPasswordRef ref, {
-//   required TextEditingController emailController,
-//   required TextEditingController passwordController,
-// }) async {
-//   final email = emailController.text;
-//   final password = passwordController.text;
-//   logger.d('signInWithEmailAndPassword: $email, $password');
-//   assert(email.isNotEmpty, 'Email must not be empty');
-//   assert(password.isNotEmpty, 'Password must not be empty');
-//   try {
-//     const AsyncLoading();
-//     final authService = ref.watch(authenticationServiceProvider);
-//     final data = await authService.signInWithEmailAndPassword(
-//       email: email,
-//       password: password,
-//     );
-//     AsyncData(data);
-//     return data;
-//   } on Exception {
-//     AsyncError('Error signing in', StackTrace.current);
-//     rethrow;
-//   }
-// }
