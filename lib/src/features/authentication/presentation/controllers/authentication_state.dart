@@ -7,6 +7,11 @@ enum AuthenticationStatus {
   unauthenticated,
 }
 
+extension AuthenticationStatusX on AuthenticationStatus {
+  bool get isAuthenticated => this == AuthenticationStatus.authenticated;
+  bool get isUnauthenticated => this == AuthenticationStatus.unauthenticated;
+}
+
 @freezed
 class AuthenticationState with _$AuthenticationState {
   const factory AuthenticationState({

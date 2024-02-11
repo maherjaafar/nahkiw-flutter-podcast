@@ -4,6 +4,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'sign_in_controller.g.dart';
 
 @riverpod
+AuthenticationStatus authenticationStatus(AuthenticationStatusRef ref) {
+  final authState = ref.watch(authenticationProvider).valueOrNull;
+  return authState?.status ?? AuthenticationStatus.unauthenticated;
+}
+
+@riverpod
 class Authentication extends _$Authentication {
   @override
   Future<AuthenticationState> build() async {

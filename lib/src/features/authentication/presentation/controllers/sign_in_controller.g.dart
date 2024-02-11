@@ -6,6 +6,23 @@ part of 'sign_in_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$authenticationStatusHash() =>
+    r'92c0943d4d3bd02c46b4bbe3f4519d3d01c3d6f2';
+
+/// See also [authenticationStatus].
+@ProviderFor(authenticationStatus)
+final authenticationStatusProvider =
+    AutoDisposeProvider<AuthenticationStatus>.internal(
+  authenticationStatus,
+  name: r'authenticationStatusProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$authenticationStatusHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef AuthenticationStatusRef = AutoDisposeProviderRef<AuthenticationStatus>;
 String _$authenticationHash() => r'8217dd0bcb571d3386bd2faf38f906523acaf09f';
 
 /// See also [Authentication].
