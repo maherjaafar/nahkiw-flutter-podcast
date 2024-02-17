@@ -19,6 +19,7 @@ class AuthenticationPageBase extends StatelessWidget {
       child: Scaffold(
         backgroundColor: FirstEpisodeColors.white,
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           backgroundColor: FirstEpisodeColors.white,
         ),
         body: Padding(
