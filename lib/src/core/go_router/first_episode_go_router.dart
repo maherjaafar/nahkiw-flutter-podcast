@@ -10,32 +10,38 @@ GoRouter goRouter(GoRouterRef ref) {
   final routerKey = GlobalKey<NavigatorState>(debugLabel: 'routerKey');
   final isAuth = ValueNotifier<bool>(true);
   ref
-    ..onDispose(isAuth.dispose) // don't forget to clean after yourselves (:
-    // update the listenable, when some provider value changes
-    // here, we are just interested in wheter the user's logged in
+    ..onDispose(isAuth.dispose)
     ..listen(
       authenticationStatusProvider.select((value) => value.isUnauthenticated),
-      (_, next) {
-        isAuth.value = next;
-      },
+      (_, next) => isAuth.value = next,
     );
+
   return GoRouter(
     navigatorKey: routerKey,
     initialLocation: _signInRoute.path,
     refreshListenable: isAuth,
     redirect: (context, state) {
-      logger.d('isAuth: ${isAuth.value}');
-      if (isAuth.value) {
-        return _signInRoute.path;
-      } else {
-        return _rootRoute.path;
+      final fullPath = state.fullPath;
+      if (fullPath == null) return null;
+      final isAlreadyAuthPage = isAlreadyInAuthRoute(fullPath);
+      final isUnauthenticated = isAuth.value;
+      if (isUnauthenticated && !isAlreadyAuthPage) {
+        return FirstEpisodeRouteNames.signIn.path;
       }
+      if (!isUnauthenticated && isAlreadyAuthPage) {
+        return FirstEpisodeRouteNames.root;
+      }
+      return null;
     },
     routes: [
       _rootRoute,
       _signInRoute,
     ],
   );
+}
+
+bool isAlreadyInAuthRoute(String path) {
+  return path.contains(FirstEpisodeRouteNames.signIn.path);
 }
 
 final _rootRoute = GoRoute(
