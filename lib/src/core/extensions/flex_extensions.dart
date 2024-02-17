@@ -13,6 +13,12 @@ extension FlexX on Flex {
         separation,
       ],
     ];
-    return isRow ? Row(children: newChildren) : Column(children: newChildren);
+    return Flex(
+      direction: direction,
+      mainAxisSize: mainAxisSize,
+      mainAxisAlignment: mainAxisAlignment,
+      crossAxisAlignment: crossAxisAlignment,
+      children: newChildren,
+    );
   }
 }

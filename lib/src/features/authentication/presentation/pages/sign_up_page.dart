@@ -16,13 +16,14 @@ class SignUpPage extends ConsumerWidget {
         isLoading: isLoading,
         text: 'Sign Up',
         onPressed: () {
-          if (isLoading) return;
-          final isFormValid = formKey.currentState!.validate();
-          if (isFormValid) {
-            context.goNamed(FirstEpisodeRouteNames.root);
-            return;
-          }
-          showSnackBar(context, 'Please fill up the form');
+          context.goNamed(FirstEpisodeRouteNames.confirmEmail);
+          // if (isLoading) return;
+          // final isFormValid = formKey.currentState!.validate();
+          // if (isFormValid) {
+          //   context.goNamed(FirstEpisodeRouteNames.root);
+          //   return;
+          // }
+          // showSnackBar(context, 'Please fill up the form');
         },
       ),
       secondaryAction: AuthActionItem(

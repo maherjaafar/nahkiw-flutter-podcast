@@ -15,58 +15,51 @@ class AuthenticationPageBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: FirstEpisodeColors.white,
-        appBar: AppBar(
-          scrolledUnderElevation: 0,
-          backgroundColor: FirstEpisodeColors.white,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(FirstEpisodeSizes.large).copyWith(
-            top: 0,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: _buildSloganAndLogo(),
-              ),
-              const SizedBox(height: FirstEpisodeSizes.xxLarge),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      body,
-                      const SizedBox(height: FirstEpisodeSizes.medium),
-                      Column(
-                        children: [
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: FirstEpisodeColors.orange,
-                              foregroundColor: FirstEpisodeColors.white,
-                              textStyle:
-                                  context.textTheme.bodyLarge.bold?.copyWith(
-                                color: FirstEpisodeColors.white,
-                              ),
-                              minimumSize: const Size(double.infinity, 50),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(FirstEpisodeSizes.large)
+            .copyWith(top: FirstEpisodeSizes.none),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: _buildSloganAndLogo(),
+            ),
+            const SizedBox(height: FirstEpisodeSizes.xxLarge),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    body,
+                    const SizedBox(height: FirstEpisodeSizes.medium),
+                    Column(
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: FirstEpisodeColors.orange,
+                            foregroundColor: FirstEpisodeColors.white,
+                            textStyle:
+                                context.textTheme.bodyLarge.bold?.copyWith(
+                              color: FirstEpisodeColors.white,
                             ),
-                            onPressed: primaryAction.onPressed,
-                            child: primaryAction.isLoading
-                                ? const CircularProgressIndicator.adaptive()
-                                : Text(primaryAction.text),
+                            minimumSize: const Size(double.infinity, 50),
                           ),
-                          const SizedBox(height: FirstEpisodeSizes.medium),
-                          _buildSecondaryActionButton(context),
-                        ],
-                      ),
-                    ],
-                  ),
+                          onPressed: primaryAction.onPressed,
+                          child: primaryAction.isLoading
+                              ? const CircularProgressIndicator.adaptive()
+                              : Text(primaryAction.text),
+                        ),
+                        const SizedBox(height: FirstEpisodeSizes.medium),
+                        _buildSecondaryActionButton(context),
+                      ],
+                    ),
+                  ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

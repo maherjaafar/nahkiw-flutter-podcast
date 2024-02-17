@@ -6,10 +6,27 @@ ThemeData buildThemeBase(Brightness brightness) {
   final baseTheme = ThemeData(brightness: brightness);
   final textTheme = GoogleFonts.poppinsTextTheme(baseTheme.textTheme);
   return baseTheme.copyWith(
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: FirstEpisodeColors.orange,
+        foregroundColor: FirstEpisodeColors.white,
+        textStyle: textTheme.bodyLarge.bold?.copyWith(
+          color: FirstEpisodeColors.white,
+        ),
+        minimumSize: const Size(double.infinity, 50),
+      ),
+    ),
+    scaffoldBackgroundColor: FirstEpisodeColors.white,
+    appBarTheme: _appBarTheme,
     textTheme: textTheme,
     inputDecorationTheme: _buildInputDecorationTheme(textTheme),
   );
 }
+
+AppBarTheme get _appBarTheme => const AppBarTheme(
+      backgroundColor: FirstEpisodeColors.white,
+      elevation: 0,
+    );
 
 InputDecorationTheme _buildInputDecorationTheme(
   TextTheme textTheme,

@@ -7,24 +7,24 @@ class FirstEpisodeClickableText extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.secondaryText,
+    this.textStyle,
   }) : super(key: key);
 
   final String text;
+  final TextStyle? textStyle;
   final String? secondaryText;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final style = context.textTheme.bodyLarge.bold?.copyWith(
-      color: FirstEpisodeColors.grey,
-    );
+    final style = textStyle ??
+        context.textTheme.bodyLarge.bold?.copyWith(
+          color: FirstEpisodeColors.grey,
+        );
     return TextButton(
       onPressed: onPressed,
       child: secondaryText == null
-          ? Text(
-              text,
-              style: style,
-            )
+          ? Text(text, style: style)
           : RichText(
               text: TextSpan(
                 style: style?.copyWith(

@@ -1,3 +1,4 @@
+import 'package:first_episode/src/features/authentication/presentation/pages/confirmation_email_sent_page.dart';
 import 'package:first_episode/src/src.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -63,11 +64,18 @@ final _signInRoute = GoRoute(
   name: FirstEpisodeRouteNames.signIn,
   path: FirstEpisodeRouteNames.signIn.path,
   builder: (context, state) => const SignInPage(),
-  routes: [
-    GoRoute(
-      path: FirstEpisodeRouteNames.signUp,
-      name: FirstEpisodeRouteNames.signUp,
-      builder: (context, state) => const SignUpPage(),
-    ),
-  ],
+  routes: [_signUpRoute],
+);
+
+final _signUpRoute = GoRoute(
+  path: FirstEpisodeRouteNames.signUp,
+  name: FirstEpisodeRouteNames.signUp,
+  builder: (context, state) => const SignUpPage(),
+  routes: [_confirmEmailRoute],
+);
+
+final _confirmEmailRoute = GoRoute(
+  path: FirstEpisodeRouteNames.confirmEmail,
+  name: FirstEpisodeRouteNames.confirmEmail,
+  builder: (context, state) => const ConfirmationEmailSentPage(),
 );

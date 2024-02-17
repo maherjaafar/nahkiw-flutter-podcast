@@ -1,4 +1,7 @@
 class FirstEpisodeSizes {
+  /// 0.0
+  static const double none = 0;
+
   /// 2.0
   static const double xxxSmall = 2;
 
