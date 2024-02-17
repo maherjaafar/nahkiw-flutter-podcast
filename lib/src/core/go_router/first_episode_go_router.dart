@@ -20,24 +20,33 @@ GoRouter goRouter(GoRouterRef ref) {
     navigatorKey: routerKey,
     initialLocation: _signInRoute.path,
     refreshListenable: isAuth,
-    redirect: (context, state) {
-      final fullPath = state.fullPath;
-      if (fullPath == null) return null;
-      final isAlreadyAuthPage = isAlreadyInAuthRoute(fullPath);
-      final isUnauthenticated = isAuth.value;
-      if (isUnauthenticated && !isAlreadyAuthPage) {
-        return FirstEpisodeRouteNames.signIn.path;
-      }
-      if (!isUnauthenticated && isAlreadyAuthPage) {
-        return FirstEpisodeRouteNames.root;
-      }
-      return null;
-    },
+    redirect: (context, state) => redirect(
+      context,
+      state,
+      isUnauthenticated: isAuth.value,
+    ),
     routes: [
       _rootRoute,
       _signInRoute,
     ],
   );
+}
+
+FutureOr<String?> redirect(
+  BuildContext context,
+  GoRouterState state, {
+  required bool isUnauthenticated,
+}) {
+  final fullPath = state.fullPath;
+  if (fullPath == null) return null;
+  final isAlreadyAuthPage = isAlreadyInAuthRoute(fullPath);
+  if (isUnauthenticated && !isAlreadyAuthPage) {
+    return FirstEpisodeRouteNames.signIn.path;
+  }
+  if (!isUnauthenticated && isAlreadyAuthPage) {
+    return FirstEpisodeRouteNames.root;
+  }
+  return null;
 }
 
 bool isAlreadyInAuthRoute(String path) {
